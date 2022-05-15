@@ -17,8 +17,6 @@ env:
   SUBFOLDER: dnsmasq
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}/${{ env.SUBFOLDER }}
 
 
 jobs:
@@ -30,6 +28,10 @@ jobs:
       packages: write
 
     steps:
+
+      - name: "Set environmental variables"
+        run: |
+          echo "IMAGE_NAME=${{ github.repository }}/${{ env.SUBFOLDER }}" >> $GITHUB_ENV
       - name: Checkout repository
         uses: actions/checkout@v2
 
